@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title></title>
+    <head>
+    <style type="text/css">
+        body{
+            margin: 0;
+            background-color: rgb(132, 202, 255);
+            text-align: center;
+        }
+        #cV{font-size: 18px;
+            color:white; 
+            font-family: Arial, Helvetica, sans-serif;}
+        .ani {
+            display: flex;
+            width: 100%;
+            height: 90vh;
+            background: url(man.gif);
+            background-size: 50vw auto;
+            animation: shift 2s infinite linear;
+        }
+        #control {
+            margin: auto;
+            margin-top: 30px;
+        }
+        @keyframes shift{
+            from{background-position: 0 0;}
+            to{background-position: -50vw 0;}
+        }
+        .box {
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                left: 100px;
+                top: 100 px;
+                background: url(catch.gif);
+            }
+    </style>
+    </head>
+    <body>
+
+        <div id="left" class="ani"></div>
+        <input type="range" id="control" step="0.1" min="0.2" max="5" value="2">
+        <input type="range" id="control3d" step="1" min="0" max="360" value="0">
+        <script type="text/javascript">
+            control.oninput = function(){
+                left.style.animationDuration = control.value + "s";
+            }
+            control3d.oninput = function(){
+                left.style.transform = "rotateZ("+control3d.value+"deg)";
+            }
+        </script>
+        
+
+        <div id="cV"></div>
+        <input type="color" id="c1">
+        <script type="text/javascript">
+            c1.oninput = function()
+            {
+                document.body.style.background = c1.value;
+                cV.innerHTML = c1.value;
+            }
+        </script>
+
+        <script type="text/javascript">
+            makeBox();
+
+            function makeBox(){
+                var a = document.createElement("div");
+                a.id = "square";
+                a.className = "box";
+                var b = Math.random()*window.innerWidth;
+                var c = Math.random()*window.innerHeight;
+                a.style.left = b + "px";
+                a.style.top = c + "px";
+                a.onclick = function (){
+                    a.parentNode.removeChild(a);
+                    makeBox();
+                }
+                document.body.appendChild(a);
+            }
+        </script>
+
+    </body>
+</html>
